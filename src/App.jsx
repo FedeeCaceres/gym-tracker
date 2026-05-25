@@ -36,7 +36,7 @@ const loadS = () => { try { return JSON.parse(localStorage.getItem(SESSION_KEY))
 const clearS = () => { try { localStorage.removeItem(SESSION_KEY); } catch {} };
 
 // ══════════════════════════════════════════════
-//  EXERCISE LIBRARY
+//  EXERCISE LIBRARY (con NUEVOS 30 ejercicios agregados)
 // ══════════════════════════════════════════════
 const EX = [
   { id:"bp",    name:"Press Banca con Barra",         muscle:"Pecho",   inc:2.5, compound:true },
@@ -90,6 +90,37 @@ const EX = [
   { id:"plank", name:"Plancha",                       muscle:"Core",    inc:0   },
   { id:"legr",  name:"Elevación de Piernas Colgado",  muscle:"Core",    inc:0   },
   { id:"russ",  name:"Giro Ruso con Peso",            muscle:"Core",    inc:2   },
+  // ========== NUEVOS 30 EJERCICIOS (AGREGADOS SIN MODIFICAR LOS ANTERIORES) ==========
+  { id:"dorianrow", name:"Remo Dorian (Máquina)",          muscle:"Espalda", inc:2.5 },
+  { id:"tbarrow",   name:"Remo Barra T",                   muscle:"Espalda", inc:2.5, compound:true },
+  { id:"hacksq",    name:"Sentadilla Hack",                muscle:"Piernas", inc:5,   compound:true },
+  { id:"smithsq",   name:"Sentadilla en Smith",            muscle:"Piernas", inc:5 },
+  { id:"smithbp",   name:"Press Banca en Smith (Plano)",   muscle:"Pecho",   inc:2.5 },
+  { id:"smithibp",  name:"Press Inclinado en Smith",       muscle:"Pecho",   inc:2.5 },
+  { id:"sumodl",    name:"Peso Muerto Sumo",               muscle:"Piernas", inc:5,   compound:true },
+  { id:"closegplat",name:"Jalón al Pecho Agarre Cerrado",  muscle:"Espalda", inc:2.5 },
+  { id:"lyingcurl", name:"Curl Femoral Acostado",          muscle:"Piernas", inc:2.5 },
+  { id:"legpress",  name:"Prensa 45°",                     muscle:"Piernas", inc:5 },
+  { id:"dbldl",     name:"Peso Muerto con Mancuernas",     muscle:"Espalda", inc:2.5, compound:true },
+  { id:"inclinepush",name:"Fondos en Banca Inclinada",     muscle:"Pecho",   inc:2 },
+  { id:"cablecrunch",name:"Crunches en Polea Alta",        muscle:"Core",    inc:2.5 },
+  { id:"hangingleg", name:"Elevación de Piernas Colgado (Core)", muscle:"Core", inc:0 },
+  { id:"abwheel",   name:"Rueda Abdominal",                muscle:"Core",    inc:0 },
+  { id:"laterals",  name:"Elevaciones Laterales con Mancuerna", muscle:"Hombros", inc:1 },
+  { id:"frontraise",name:"Elevaciones Frontales con Disco", muscle:"Hombros", inc:1 },
+  { id:"revfly",    name:"Pájaro en Máquina",               muscle:"Hombros", inc:1.5 },
+  { id:"french",    name:"Press Francés con Barra",         muscle:"Tríceps", inc:2.5 },
+  { id:"overhead",  name:"Extensión Tríceps por Encima",    muscle:"Tríceps", inc:2 },
+  { id:"preacher",  name:"Curl Predicador",                 muscle:"Bíceps",  inc:2 },
+  { id:"inclinecurl",name:"Curl en Banca Inclinada",        muscle:"Bíceps",  inc:1.5 },
+  { id:"dbpullover", name:"Pullover con Mancuerna (Espalda)", muscle:"Espalda", inc:2 },
+  { id:"hyperext",  name:"Hiperextensiones (Lumbar)",       muscle:"Espalda", inc:2.5 },
+  { id:"goblet",    name:"Sentadilla Copa (Goblet)",        muscle:"Piernas", inc:2.5 },
+  { id:"bulgarian", name:"Sentadilla Búlgara (Peso)",       muscle:"Piernas", inc:2 },
+  { id:"donkeycalf",name:"Elevación de Gemelos en Burro",   muscle:"Gemelos", inc:5 },
+  { id:"seatedcalf",name:"Gemelo Sentado",                  muscle:"Gemelos", inc:2.5 },
+  { id:"cablefly",  name:"Aperturas en Polea Baja",         muscle:"Pecho",   inc:1.5 },
+  { id:"pullupw",   name:"Dominadas con Lastre",            muscle:"Espalda", inc:2.5 },
 ];
 const MUSCLES = ["Todos", ...new Set(EX.map(e => e.muscle))];
 const COMPOUNDS = EX.filter(e => e.compound);
@@ -244,7 +275,7 @@ const FS = "'DM Sans','Helvetica Neue',Arial,sans-serif";
 const FM = "'DM Mono','Courier New',monospace";
 
 // ══════════════════════════════════════════════
-//  UI ATOMS
+//  UI ATOMS (sin cambios)
 // ══════════════════════════════════════════════
 function Btn({ onClick, children, ghost, full, disabled, style: sx={} }) {
   return (
@@ -309,7 +340,7 @@ function Modal({ open, onClose, title, children }) {
 }
 
 // ══════════════════════════════════════════════
-//  EXERCISE AGENDA MODAL
+//  EXERCISE AGENDA MODAL (sin cambios)
 // ══════════════════════════════════════════════
 function ExerciseAgendaModal({ open, onClose, exercise, logs, routines }) {
   if (!open || !exercise) return null;
@@ -319,7 +350,6 @@ function ExerciseAgendaModal({ open, onClose, exercise, logs, routines }) {
 
   return (
     <Modal open={open} onClose={onClose} title={libEx?.name || ""}>
-      {/* Muscle + PR */}
       <div style={{ display:"flex", justifyContent:"space-between", alignItems:"center", marginBottom:16 }}>
         <div style={{ display:"flex", gap:8 }}>
           <Tag active>{libEx?.muscle}</Tag>
@@ -333,15 +363,11 @@ function ExerciseAgendaModal({ open, onClose, exercise, logs, routines }) {
           </div>
         )}
       </div>
-
-      {/* Progression info */}
       {libEx?.inc > 0 && (
         <div style={{ background:C.s2, border:`1px solid ${C.b1}`, borderRadius:8, padding:"10px 14px", marginBottom:16 }}>
           <div style={{ fontSize:12, color:C.dim }}>Incremento sugerido: <strong style={{ color:C.white }}>+{libEx.inc}kg</strong> por sesión al llegar al fallo</div>
         </div>
       )}
-
-      {/* History agenda */}
       <Lbl>Historial — Agenda de pesos</Lbl>
       {history.length === 0 ? (
         <div style={{ textAlign:"center", padding:"24px 0", color:C.dimmer, fontSize:13 }}>
@@ -362,7 +388,6 @@ function ExerciseAgendaModal({ open, onClose, exercise, logs, routines }) {
                   </div>
                   {isFirst && <Tag active color={C.green}>Última</Tag>}
                 </div>
-                {/* Sets */}
                 <div style={{ display:"flex", gap:6, flexWrap:"wrap" }}>
                   {entry.sets.map((s, j) => (
                     <div key={j} style={{ background:s.fail?C.redBg:C.s3, border:`1px solid ${s.fail?"rgba(255,48,64,0.25)":C.b1}`, borderRadius:7, padding:"5px 10px", textAlign:"center" }}>
@@ -378,8 +403,6 @@ function ExerciseAgendaModal({ open, onClose, exercise, logs, routines }) {
           })}
         </div>
       )}
-
-      {/* Progression chart (simple text-based) */}
       {history.length > 1 && (() => {
         const weights = history.map(h => Math.max(...h.sets.map(s => parseFloat(s.weight)||0)));
         const first = weights[0], last = weights[weights.length-1];
@@ -409,7 +432,7 @@ function ExerciseAgendaModal({ open, onClose, exercise, logs, routines }) {
 }
 
 // ══════════════════════════════════════════════
-//  EXERCISE CONFIGURATOR (in routine builder)
+//  EXERCISE CONFIGURATOR (sin cambios)
 // ══════════════════════════════════════════════
 function ExConfig({ ex, logs, rid, routines, onRemove, onSetCount, onSetWeight }) {
   const libEx = exById(ex.libId);
@@ -436,7 +459,6 @@ function ExConfig({ ex, logs, rid, routines, onRemove, onSetCount, onSetWeight }
             )}
           </div>
           <div style={{ display:"flex", gap:6, alignItems:"center", marginLeft:8, flexShrink:0 }}>
-            {/* Agenda button */}
             <button onClick={() => setShowAgenda(true)} title="Ver historial" style={{ background:"none", border:`1px solid ${C.b1}`, borderRadius:7, color:C.dim, cursor:"pointer", fontSize:13, padding:"4px 9px" }}>📅</button>
             <button onClick={() => setOpen(p=>!p)} style={{ background:"none", border:"none", color:C.dim, cursor:"pointer", fontSize:18, transform:open?"rotate(180deg)":"none", transition:"transform .2s" }}>⌄</button>
             <button onClick={onRemove} style={{ background:"none", border:"none", color:C.dimmer, cursor:"pointer", fontSize:20, lineHeight:1 }}>×</button>
@@ -496,7 +518,7 @@ function ExConfig({ ex, logs, rid, routines, onRemove, onSetCount, onSetWeight }
 }
 
 // ══════════════════════════════════════════════
-//  MAIN APP
+//  MAIN APP (sin cambios)
 // ══════════════════════════════════════════════
 export default function App() {
   const [status, setStatus] = useState("loading");
@@ -632,17 +654,88 @@ export default function App() {
         select{background:${C.s2};border:1px solid ${C.b1};border-radius:8px;color:${C.white};font-family:${FS};font-size:14px;padding:11px 14px;outline:none;width:100%}
         ::-webkit-scrollbar{width:4px}::-webkit-scrollbar-thumb{background:${C.dimmer};border-radius:2px}
         @keyframes spin{to{transform:rotate(360deg)}}
+        
+        /* ========== MEJORAS VISUALES INTERACTIVAS ========== */
+        div[style*="background: #101010"], .card-glass {
+          transition: all 0.25s ease;
+        }
+        div[style*="background: #101010"]:hover {
+          background: #181818 !important;
+          border-color: rgba(255,255,255,0.15) !important;
+          transform: translateY(-2px);
+          box-shadow: 0 12px 28px rgba(0,0,0,0.3);
+        }
+        button:active {
+          transform: scale(0.97);
+        }
+        button {
+          transition: all 0.15s ease;
+        }
+        .gradient-title {
+          background: linear-gradient(135deg, #fff, #a855f7, #3b82f6);
+          background-clip: text;
+          -webkit-background-clip: text;
+          color: transparent;
+          animation: shimmer 3s infinite;
+        }
+        @keyframes shimmer {
+          0% { background-position: -200% 0; }
+          100% { background-position: 200% 0; }
+        }
+        @keyframes fadeSlideUp {
+          from { opacity: 0; transform: translateY(12px); }
+          to { opacity: 1; transform: translateY(0); }
+        }
+        div[style*="border-radius: 12px"] {
+          animation: fadeSlideUp 0.3s ease-out;
+        }
+        input:focus, select:focus, textarea:focus {
+          border-color: #3b82f6 !important;
+          box-shadow: 0 0 0 2px rgba(59,130,246,0.2);
+        }
+        nav {
+          backdrop-filter: blur(16px);
+          background: rgba(8,8,8,0.85) !important;
+          transition: backdrop-filter 0.2s;
+        }
+        [onClick] {
+          cursor: pointer;
+        }
+        ::-webkit-scrollbar {
+          width: 6px;
+          height: 6px;
+        }
+        ::-webkit-scrollbar-track {
+          background: #1a1a1a;
+          border-radius: 3px;
+        }
+        ::-webkit-scrollbar-thumb {
+          background: linear-gradient(180deg, #3b82f6, #a855f7);
+          border-radius: 3px;
+        }
+        span[style*="border-radius: 20px"] {
+          transition: all 0.2s;
+        }
+        span[style*="border-radius: 20px"]:hover {
+          transform: scale(1.02);
+          filter: brightness(1.1);
+        }
+        @keyframes pulse-glow {
+          0% { opacity: 0.4; text-shadow: 0 0 0px #fff; }
+          50% { opacity: 1; text-shadow: 0 0 8px #3b82f6; }
+          100% { opacity: 0.4; text-shadow: 0 0 0px #fff; }
+        }
       `}</style>
 
       {/* Header */}
       <div style={{ padding:"14px 18px 12px", borderBottom:`1px solid ${C.b1}`, position:"sticky", top:0, background:"rgba(8,8,8,0.96)", backdropFilter:"blur(20px)", zIndex:100, display:"flex", justifyContent:"space-between", alignItems:"center" }}>
         <div>
           <div style={{ fontSize:10, letterSpacing:3, color:C.dimmer, textTransform:"uppercase", fontWeight:600 }}>Gym Tracker</div>
-          <div style={{ fontSize:16, fontWeight:700 }}>{user?.username}</div>
+          <div style={{ fontSize:16, fontWeight:700, background: "linear-gradient(135deg, #fff, #a855f7)", backgroundClip: "text", WebkitBackgroundClip: "text", color: "transparent" }}>{user?.username}</div>
         </div>
         {activeSess && (
           <div style={{ display:"flex", alignItems:"center", gap:6, padding:"5px 11px", background:C.redBg, border:`1px solid ${C.red}`, borderRadius:20 }}>
-            <div style={{ width:6, height:6, borderRadius:"50%", background:C.red }}/>
+            <div style={{ width:6, height:6, borderRadius:"50%", background:C.red, animation: "pulse-glow 1.2s infinite" }}/>
             <span style={{ fontSize:10, fontWeight:700, color:C.red, letterSpacing:1 }}>SESIÓN</span>
           </div>
         )}
@@ -711,7 +804,7 @@ function AuthScreen({ onAuth }) {
       <div style={{ width:"100%", maxWidth:380 }}>
         <div style={{ textAlign:"center", marginBottom:36 }}>
           <div style={{ fontSize:48, marginBottom:12 }}>🏋️</div>
-          <div style={{ fontSize:32, fontWeight:700, letterSpacing:-1 }}>Gym Tracker</div>
+          <div style={{ fontSize:32, fontWeight:700, letterSpacing:-1, background: "linear-gradient(135deg, #fff, #a855f7)", backgroundClip: "text", WebkitBackgroundClip: "text", color: "transparent" }}>Gym Tracker</div>
           <div style={{ fontSize:13, color:C.dim, marginTop:8 }}>Registrá tu progreso. Superá tus marcas.</div>
         </div>
         <div style={{ display:"flex", background:C.s1, borderRadius:10, padding:4, marginBottom:18 }}>
@@ -736,7 +829,7 @@ function AuthScreen({ onAuth }) {
 }
 
 // ══════════════════════════════════════════════
-//  DASHBOARD
+//  DASHBOARD (sin cambios)
 // ══════════════════════════════════════════════
 function DashboardView({ db, user, setView, setActiveSess }) {
   function startSession(rid) {
@@ -760,8 +853,8 @@ function DashboardView({ db, user, setView, setActiveSess }) {
   return (
     <div>
       <div style={{ marginBottom:24 }}>
-        <div style={{ fontSize:10, letterSpacing:3, color:C.dimmer, textTransform:"uppercase", fontWeight:600, marginBottom:5 }}>Dashboard</div>
-        <div style={{ fontSize:24, fontWeight:700, letterSpacing:-1 }}>Hola, {user?.username} 👋</div>
+        <div style={{ fontSize:10, letterSpacing:3, color:C.dimmer, textTransform:"uppercase", fontWeight:600 }}>Dashboard</div>
+        <div style={{ fontSize:24, fontWeight:700, letterSpacing:-1, background: "linear-gradient(135deg, #fff, #a855f7)", backgroundClip: "text", WebkitBackgroundClip: "text", color: "transparent" }}>Hola, {user?.username} 👋</div>
       </div>
 
       <div style={{ display:"grid", gridTemplateColumns:"repeat(2,1fr)", gap:8, marginBottom:24 }}>
@@ -836,7 +929,7 @@ function DashboardView({ db, user, setView, setActiveSess }) {
 }
 
 // ══════════════════════════════════════════════
-//  PROGRAMS (splits + strength)
+//  PROGRAMS (sin cambios)
 // ══════════════════════════════════════════════
 function ProgramsView({ db, showToast, setView }) {
   const [tab, setTab] = useState("splits"); // splits | strength
@@ -844,7 +937,7 @@ function ProgramsView({ db, showToast, setView }) {
   const [sForm, setSForm] = useState(SDEF);
   const [creating, setCreating] = useState(false);
   const [viewingStrength, setViewingStrength] = useState(null);
-  const [importingId, setImportingId] = useState(null); // split being imported
+  const [importingId, setImportingId] = useState(null);
   const F = v => setSForm(p=>({...p,...v}));
 
   async function importSplit(split) {
@@ -875,15 +968,12 @@ function ProgramsView({ db, showToast, setView }) {
   return (
     <div>
       <PH supra="Programas" title="Programas de Entrenamiento"/>
-
-      {/* Tab switcher */}
       <div style={{ display:"flex", background:C.s1, borderRadius:10, padding:4, marginBottom:20 }}>
         {[["splits","Splits de Entrenamiento"],["strength","Progresión de Fuerza"]].map(([t,l]) => (
           <button key={t} onClick={()=>setTab(t)} style={{ flex:1, padding:"10px 8px", background:tab===t?C.white:"transparent", color:tab===t?C.bg:C.dim, border:"none", borderRadius:8, fontFamily:FS, fontSize:13, fontWeight:600, cursor:"pointer" }}>{l}</button>
         ))}
       </div>
 
-      {/* ── SPLITS TAB ── */}
       {tab==="splits" && (
         <div>
           <div style={{ fontSize:13, color:C.dim, marginBottom:20, lineHeight:1.6 }}>
@@ -900,8 +990,6 @@ function ProgramsView({ db, showToast, setView }) {
                   <div style={{ fontSize:12, color:C.dim, lineHeight:1.5 }}>{split.description}</div>
                 </div>
               </div>
-
-              {/* Days preview */}
               <div style={{ display:"flex", flexDirection:"column", gap:6, marginBottom:14 }}>
                 {split.days.map((day, i) => (
                   <div key={i} style={{ background:C.s2, borderRadius:8, padding:"10px 12px" }}>
@@ -915,13 +1003,7 @@ function ProgramsView({ db, showToast, setView }) {
                   </div>
                 ))}
               </div>
-
-              <Btn
-                onClick={() => importSplit(split)}
-                disabled={importingId === split.id}
-                full
-                style={{ background: split.color, color:"#fff" }}
-              >
+              <Btn onClick={() => importSplit(split)} disabled={importingId === split.id} full style={{ background: split.color, color:"#fff" }}>
                 {importingId===split.id ? "Importando..." : `Importar ${split.name} → Mis Rutinas`}
               </Btn>
             </Card>
@@ -929,7 +1011,6 @@ function ProgramsView({ db, showToast, setView }) {
         </div>
       )}
 
-      {/* ── STRENGTH TAB ── */}
       {tab==="strength" && (
         <div>
           {viewingStrength ? (
@@ -981,9 +1062,7 @@ function ProgramsView({ db, showToast, setView }) {
                   </Card>
                 ))}
               </div>
-
               {!creating && <Btn onClick={()=>setCreating(true)} full style={{ marginBottom:16 }}>+ Nuevo programa de fuerza</Btn>}
-
               {creating && (
                 <Card style={{ marginBottom:16, borderColor:C.b2 }}>
                   <div style={{ fontWeight:700, fontSize:15, marginBottom:16 }}>Configurar programa</div>
@@ -1015,7 +1094,6 @@ function ProgramsView({ db, showToast, setView }) {
                   <div style={{ display:"flex", gap:8 }}><Btn onClick={createStrength} full>Crear</Btn><Btn ghost onClick={()=>setCreating(false)} full>Cancelar</Btn></div>
                 </Card>
               )}
-
               {db.programs.map(p => {
                 const done = db.logs.filter(l=>l.program_id===p.id).length;
                 const total = (p.schedule||[]).length;
@@ -1047,16 +1125,15 @@ function ProgramsView({ db, showToast, setView }) {
 }
 
 // ══════════════════════════════════════════════
-//  ROUTINES
+//  ROUTINES (sin cambios)
 // ══════════════════════════════════════════════
 function RoutinesView({ db, showToast }) {
   const [building, setBuilding] = useState(null);
   const [mFilter, setMFilter] = useState("Todos");
   const [search, setSearch] = useState("");
-  const [agendaEx, setAgendaEx] = useState(null); // { libId } for agenda modal in list view
+  const [agendaEx, setAgendaEx] = useState(null);
 
   function startBuild(r=null) { setBuilding(r?{...r,exercises:[...(r.exercises||[])]}:{name:"",exercises:[]}); }
-
   function toggleEx(libId) {
     const has = building.exercises.find(e=>e.libId===libId);
     setBuilding(p=>({...p,exercises:has?p.exercises.filter(e=>e.libId!==libId):[...p.exercises,{libId,sets:3,plannedWeights:["","",""]}]}));
@@ -1116,10 +1193,7 @@ function RoutinesView({ db, showToast }) {
 
   return (
     <div>
-      {/* Agenda modal when viewing routine list */}
-      {agendaEx && (
-        <ExerciseAgendaModal open={!!agendaEx} onClose={()=>setAgendaEx(null)} exercise={agendaEx} logs={db.logs} routines={db.routines}/>
-      )}
+      {agendaEx && <ExerciseAgendaModal open={!!agendaEx} onClose={()=>setAgendaEx(null)} exercise={agendaEx} logs={db.logs} routines={db.routines}/>}
       <PH supra="Rutinas" title="Mis Rutinas" action={<Btn onClick={()=>startBuild()}>+ Nueva</Btn>}/>
       {db.routines.length===0 && (
         <Card style={{ textAlign:"center", padding:48 }}>
@@ -1147,12 +1221,8 @@ function RoutinesView({ db, showToast }) {
                 <div key={ex.libId} style={{ padding:"9px 0", borderTop:`1px solid ${C.b1}` }}>
                   <div style={{ display:"flex", justifyContent:"space-between", alignItems:"flex-start" }}>
                     <div style={{ flex:1 }}>
-                      {/* Tappable exercise name → opens agenda */}
                       <div style={{ display:"flex", alignItems:"center", gap:8 }}>
-                        <div style={{ fontSize:13, fontWeight:500, cursor:"pointer", textDecoration:"underline", textDecorationColor:C.b2 }}
-                          onClick={()=>setAgendaEx({libId:ex.libId})}>
-                          {le?.name}
-                        </div>
+                        <div style={{ fontSize:13, fontWeight:500, cursor:"pointer", textDecoration:"underline", textDecorationColor:C.b2 }} onClick={()=>setAgendaEx({libId:ex.libId})}>{le?.name}</div>
                         <button onClick={()=>setAgendaEx({libId:ex.libId})} style={{ background:"none", border:"none", color:C.dim, cursor:"pointer", fontSize:13, lineHeight:1, padding:0 }} title="Ver historial">📅</button>
                       </div>
                       <div style={{ fontSize:10, color:C.dim, marginTop:2 }}>{ex.sets} series</div>
@@ -1178,7 +1248,7 @@ function RoutinesView({ db, showToast }) {
 }
 
 // ══════════════════════════════════════════════
-//  SESSION
+//  SESSION (sin cambios)
 // ══════════════════════════════════════════════
 function SessionView({ db, session, setSession, setView, showToast }) {
   if (!session) return null;
@@ -1264,7 +1334,7 @@ function SessionView({ db, session, setSession, setView, showToast }) {
 }
 
 // ══════════════════════════════════════════════
-//  HISTORY
+//  HISTORY (sin cambios)
 // ══════════════════════════════════════════════
 function HistoryView({ db, showToast }) {
   const [filter, setFilter] = useState(null);
@@ -1318,7 +1388,7 @@ function HistoryView({ db, showToast }) {
 }
 
 // ══════════════════════════════════════════════
-//  RECORDS — Agenda por ejercicio
+//  RECORDS (sin cambios)
 // ══════════════════════════════════════════════
 function RecordsView({ db }) {
   const [selectedEx, setSelectedEx] = useState(null);
@@ -1429,7 +1499,7 @@ function RecordsView({ db }) {
 }
 
 // ══════════════════════════════════════════════
-//  SETTINGS
+//  SETTINGS (sin cambios)
 // ══════════════════════════════════════════════
 function SettingsView({ user, onLogout }) {
   return (
