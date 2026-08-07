@@ -90,6 +90,35 @@ const EX = [
   { id:"plank", name:"Plancha",                       muscle:"Core",    inc:0   },
   { id:"legr",  name:"Elevación de Piernas Colgado",  muscle:"Core",    inc:0   },
   { id:"russ",  name:"Giro Ruso con Peso",            muscle:"Core",    inc:2   },
+  // ========== 28 EJERCICIOS AGREGADOS (vía GitHub) ==========
+  { id:"dorianrow", name:"Remo Dorian (Máquina)",          muscle:"Espalda", inc:2.5 },
+  { id:"tbarrow",   name:"Remo Barra T",                   muscle:"Espalda", inc:2.5, compound:true },
+  { id:"hacksq",    name:"Sentadilla Hack",                muscle:"Piernas", inc:5,   compound:true },
+  { id:"smithsq",   name:"Sentadilla en Smith",            muscle:"Piernas", inc:5 },
+  { id:"smithbp",   name:"Press Banca en Smith (Plano)",   muscle:"Pecho",   inc:2.5 },
+  { id:"smithibp",  name:"Press Inclinado en Smith",       muscle:"Pecho",   inc:2.5 },
+  { id:"sumodl",    name:"Peso Muerto Sumo",               muscle:"Piernas", inc:5,   compound:true },
+  { id:"closegplat",name:"Jalón al Pecho Agarre Cerrado",  muscle:"Espalda", inc:2.5 },
+  { id:"lyingcurl", name:"Curl Femoral Acostado",          muscle:"Piernas", inc:2.5 },
+  { id:"legpress",  name:"Prensa 45°",                     muscle:"Piernas", inc:5 },
+  { id:"dbldl",     name:"Peso Muerto con Mancuernas",     muscle:"Espalda", inc:2.5, compound:true },
+  { id:"inclinepush",name:"Fondos en Banca Inclinada",     muscle:"Pecho",   inc:2 },
+  { id:"cablecrunch",name:"Crunches en Polea Alta",        muscle:"Core",    inc:2.5 },
+  { id:"hangingleg", name:"Elevación de Piernas Colgado (Core)", muscle:"Core", inc:0 },
+  { id:"abwheel",   name:"Rueda Abdominal",                muscle:"Core",    inc:0 },
+  { id:"frontraise",name:"Elevaciones Frontales con Disco", muscle:"Hombros", inc:1 },
+  { id:"revfly",    name:"Pájaro en Máquina",               muscle:"Hombros", inc:1.5 },
+  { id:"french",    name:"Press Francés con Barra",         muscle:"Tríceps", inc:2.5 },
+  { id:"overhead",  name:"Extensión Tríceps por Encima",    muscle:"Tríceps", inc:2 },
+  { id:"preacher",  name:"Curl Predicador",                 muscle:"Bíceps",  inc:2 },
+  { id:"inclinecurl",name:"Curl en Banca Inclinada",        muscle:"Bíceps",  inc:1.5 },
+  { id:"hyperext",  name:"Hiperextensiones (Lumbar)",       muscle:"Espalda", inc:2.5 },
+  { id:"goblet",    name:"Sentadilla Copa (Goblet)",        muscle:"Piernas", inc:2.5 },
+  { id:"bulgarian", name:"Sentadilla Búlgara (Peso)",       muscle:"Piernas", inc:2 },
+  { id:"donkeycalf",name:"Elevación de Gemelos en Burro",   muscle:"Gemelos", inc:5 },
+  { id:"seatedcalf",name:"Gemelo Sentado",                  muscle:"Gemelos", inc:2.5 },
+  { id:"cablefly",  name:"Aperturas en Polea Baja",         muscle:"Pecho",   inc:1.5 },
+  { id:"pullupw",   name:"Dominadas con Lastre",            muscle:"Espalda", inc:2.5 },
 ];
 const MUSCLES = ["Todos", ...new Set(EX.map(e => e.muscle))];
 const COMPOUNDS = EX.filter(e => e.compound);
@@ -764,17 +793,85 @@ export default function App() {
         select{background:${C.s2};border:1px solid ${C.b1};border-radius:8px;color:${C.white};font-family:${FS};font-size:14px;padding:11px 14px;outline:none;width:100%}
         ::-webkit-scrollbar{width:4px}::-webkit-scrollbar-thumb{background:${C.dimmer};border-radius:2px}
         @keyframes spin{to{transform:rotate(360deg)}}
+
+        /* ========== MEJORAS VISUALES INTERACTIVAS ========== */
+        div[style*="rgb(16, 16, 16)"], .card-glass {
+          transition: all 0.25s ease;
+        }
+        div[style*="rgb(16, 16, 16)"]:hover {
+          background: #181818 !important;
+          border-color: rgba(255,255,255,0.15) !important;
+          transform: translateY(-2px);
+          box-shadow: 0 12px 28px rgba(0,0,0,0.3);
+        }
+        button:active {
+          transform: scale(0.97);
+        }
+        button {
+          transition: all 0.15s ease;
+        }
+        .gradient-title {
+          background: linear-gradient(135deg, #fff, #a855f7, #3b82f6);
+          background-clip: text;
+          -webkit-background-clip: text;
+          color: transparent;
+          animation: shimmer 3s infinite;
+        }
+        @keyframes shimmer {
+          0% { background-position: -200% 0; }
+          100% { background-position: 200% 0; }
+        }
+        @keyframes fadeSlideUp {
+          from { opacity: 0; transform: translateY(12px); }
+          to { opacity: 1; transform: translateY(0); }
+        }
+        div[style*="border-radius: 12px"] {
+          animation: fadeSlideUp 0.3s ease-out;
+        }
+        input:focus, select:focus, textarea:focus {
+          border-color: #3b82f6 !important;
+          box-shadow: 0 0 0 2px rgba(59,130,246,0.2);
+        }
+        nav {
+          backdrop-filter: blur(16px);
+          background: rgba(8,8,8,0.85) !important;
+          transition: backdrop-filter 0.2s;
+        }
+        ::-webkit-scrollbar {
+          width: 6px;
+          height: 6px;
+        }
+        ::-webkit-scrollbar-track {
+          background: #1a1a1a;
+          border-radius: 3px;
+        }
+        ::-webkit-scrollbar-thumb {
+          background: linear-gradient(180deg, #3b82f6, #a855f7);
+          border-radius: 3px;
+        }
+        span[style*="border-radius: 20px"] {
+          transition: all 0.2s;
+        }
+        span[style*="border-radius: 20px"]:hover {
+          transform: scale(1.02);
+          filter: brightness(1.1);
+        }
+        @keyframes pulse-glow {
+          0% { opacity: 0.4; text-shadow: 0 0 0px #fff; }
+          50% { opacity: 1; text-shadow: 0 0 8px #3b82f6; }
+          100% { opacity: 0.4; text-shadow: 0 0 0px #fff; }
+        }
       `}</style>
 
       {/* Header */}
       <div style={{ padding:"14px 18px 12px", borderBottom:`1px solid ${C.b1}`, position:"sticky", top:0, background:"rgba(8,8,8,0.96)", backdropFilter:"blur(20px)", zIndex:100, display:"flex", justifyContent:"space-between", alignItems:"center" }}>
         <div>
           <div style={{ fontSize:10, letterSpacing:3, color:C.dimmer, textTransform:"uppercase", fontWeight:600 }}>Gym Tracker</div>
-          <div style={{ fontSize:16, fontWeight:700 }}>{user?.username}</div>
+          <div style={{ fontSize:16, fontWeight:700, background:"linear-gradient(135deg, #fff, #a855f7)", backgroundClip:"text", WebkitBackgroundClip:"text", color:"transparent" }}>{user?.username}</div>
         </div>
         {activeSess && (
           <div style={{ display:"flex", alignItems:"center", gap:6, padding:"5px 11px", background:C.redBg, border:`1px solid ${C.red}`, borderRadius:20 }}>
-            <div style={{ width:6, height:6, borderRadius:"50%", background:C.red }}/>
+            <div style={{ width:6, height:6, borderRadius:"50%", background:C.red, animation:"pulse-glow 1.2s infinite" }}/>
             <span style={{ fontSize:10, fontWeight:700, color:C.red, letterSpacing:1 }}>SESIÓN</span>
           </div>
         )}
@@ -844,7 +941,7 @@ function AuthScreen({ onAuth }) {
       <div style={{ width:"100%", maxWidth:380 }}>
         <div style={{ textAlign:"center", marginBottom:36 }}>
           <div style={{ fontSize:48, marginBottom:12 }}>🏋️</div>
-          <div style={{ fontSize:32, fontWeight:700, letterSpacing:-1 }}>Gym Tracker</div>
+          <div style={{ fontSize:32, fontWeight:700, letterSpacing:-1, background:"linear-gradient(135deg, #fff, #a855f7)", backgroundClip:"text", WebkitBackgroundClip:"text", color:"transparent" }}>Gym Tracker</div>
           <div style={{ fontSize:13, color:C.dim, marginTop:8 }}>Registrá tu progreso. Superá tus marcas.</div>
         </div>
         <div style={{ display:"flex", background:C.s1, borderRadius:10, padding:4, marginBottom:18 }}>
@@ -894,7 +991,7 @@ function DashboardView({ db, user, setView, setActiveSess }) {
     <div>
       <div style={{ marginBottom:24 }}>
         <div style={{ fontSize:10, letterSpacing:3, color:C.dimmer, textTransform:"uppercase", fontWeight:600, marginBottom:5 }}>Dashboard</div>
-        <div style={{ fontSize:24, fontWeight:700, letterSpacing:-1 }}>Hola, {user?.username} 👋</div>
+        <div style={{ fontSize:24, fontWeight:700, letterSpacing:-1, background:"linear-gradient(135deg, #fff, #a855f7)", backgroundClip:"text", WebkitBackgroundClip:"text", color:"transparent" }}>Hola, {user?.username} 👋</div>
       </div>
 
       <div style={{ display:"grid", gridTemplateColumns:"repeat(2,1fr)", gap:8, marginBottom:24 }}>
