@@ -133,13 +133,13 @@ const LIB_ATTRIBUTION = "GIFs e imágenes: © Gym visual — gymvisual.com";
 
 // Mapeo: id de ejercicio interno → id del dataset externo
 const EX_LIB_MAP = {
-  bp:"0025", ibp:"0047", dbp:"0289", idbp:"0314", cfly:"1270", dip:"0251", pull:"0375",
-  dl:"0032", row:"0027", rdl:"0085", pu:"0652", lat:"0197", lrow:"0293", crow:"0180",
+  bp:"0025", ibp:"0047", dbp:"0289", idbp:"0314", cfly:"1269", dip:"0251", pull:"0375",
+  dl:"0032", row:"0027", rdl:"0085", pu:"0652", lat:"0197", lrow:"0293", crow:"0861",
   tbar:"0606", shrug:"0095", ohp:"1457", dbohp:"0405", lat2:"0334", fron:"0310", arnd:"2137",
   facep:"0203", bbcurl:"0031", dbcurl:"0294", hamm:"0313", zbcurl:"0447", conc:"0297",
   tet:"0241", cgp:"0030", skul:"0060", copa:"0430", ropes:"0200", sq:"0043", fsq:"0042",
-  lp:"0739", legex:"0585", lcurl:"0586", lunge:"0336", bsq:"0410", abduc:"0597", sumo:"3142",
-  sccalf:"1373", sscalf:"0594", crp:"0212", legr:"0472", russ:"0846",
+  lp:"1463", legex:"0585", lcurl:"0586", lunge:"0336", bsq:"0410", abduc:"0597", sumo:"3142",
+  sccalf:"1373", sscalf:"0594", crp:"0175", legr:"0472", russ:"0687",
 };
 
 const BODY_PART_ES = {
